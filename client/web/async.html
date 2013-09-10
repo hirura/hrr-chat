@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="If-Modified-Since" content="Thu, 01 Jun 1970 00:00:00 GMT">
+
+		<title>
+			Hrr-Chat App
+		</title>
+		<script type="text/javascript">
+			<!--
+			function startLoadLog(){
+				setInterval( "loadLog();", 100 );
+			}
+			var num = '-1';
+			var view_req = new XMLHttpRequest();
+			function loadLog(){
+				if( view_req.readyState!=0 && view_req.readyState!=4 ){
+					if( document.viewer.autoscroll.checked )
+						document.viewer.lines.scrollTop = document.viewer.lines.scrollHeight;
+					return;
+				}
+				view_req.open("POST", "/cgi-bin/viewer.rb", true);
+				view_req.onreadystatechange = function(){
+					if( view_req.readyState==4 && view_req.status==200 ){
+						var lines = view_req.responseText;
+						if( lines != "" ){
+							document.viewer.lines.value += "\n" + lines.replace(/\n$/,'');
+							if( document.viewer.autoscroll.checked )
+								document.viewer.lines.scrollTop = document.viewer.lines.scrollHeight;
+							num = lines.replace(/\n$/,'').split("\n").pop().split(':')[0];
+						}
+					}
+				}
+				view_req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				view_req.send("num="+num.replace(/\&/g,'%26'));
+			}
+			function sendLine(){
+				name = document.sender.name.value;
+				line = document.sender.line.value;
+				if ( name != "" && line != "" ){
+					var send_req = new XMLHttpRequest();
+					send_req.open("POST", "/cgi-bin/sender.rb", false);
+					send_req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+					send_req.send("name="+name.replace(/\&/g,'%26')+"&line="+line.replace(/\&/g,'%26'));
+					document.sender.line.value = "";
+				}
+				document.sender.line.focus();
+				return false;
+			}
+			//-->
+		</script>
+	</head>
+	<body onload="startLoadLog(); document.sender.line.focus();">
+		<form name="viewer">
+			<textarea name="lines" rows=25 style="width:100%;">Hrr-Chat App.</textarea>
+			<br>
+			<div align="right"><input type="checkbox" name="autoscroll" value="checked" checked="checked">Auto Scroll</div>
+		</form>
+		<form name="sender" onSubmit="return sendLine();">
+			<input type="text" name="name" value="名無し" />
+			<br>
+			<input type="text" name="line" value="" style="width:100%;" />
+			<br>
+			<div align="right"><input type="submit" value="send" /></div>
+		</form>
+	</body>
+</html>
