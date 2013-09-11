@@ -11,6 +11,7 @@ module WEBrick::HTTPServlet
 end
 
 srv = WEBrick::HTTPServer.new({
+	:DoNotReverseLookup => true,
 	#:BindAddress => 'localhost',
 	:Port => 10080,
 	:CGIInterpreter => '/usr/bin/ruby',
