@@ -19,6 +19,36 @@ Ruby単体（標準のライブラリ）で動くチャットアプリケーシ�
 
 ##Files:
 
+    .
+    ├── README.md
+    ├── client
+    │   ├── pseudo-web
+    │   │   ├── async.rb
+    │   │   ├── async_cgi-wait-logger.rb
+    │   │   ├── async_js-wait-cgi.rb
+    │   │   ├── sender.rb
+    │   │   └── sender_auto.rb
+    │   ├── terminal
+    │   │   ├── sender.rb
+    │   │   ├── sender_auto.rb
+    │   │   ├── viewer.rb
+    │   │   └── viewer_long-polling.rb
+    │   └── web
+    │       ├── async.html
+    │       ├── async_cgi-wait-logger.html
+    │       ├── async_js-wait-cgi.html
+    │       ├── sync.html
+    │       └── sync_get.html
+    └── server
+        ├── cgi-bin
+        │   ├── sender.rb
+        │   ├── viewer.rb
+        │   ├── viewer_cgi-wait-logger.rb
+        │   └── viewer_js-wait-cgi.rb
+        ├── httpd.rb
+        ├── httpd_integrate-cgi.rb
+        └── logger.rb
+
 ###server/logger.rb
 書き込みのログを保存するチャットサーバー．  
 書き込みは12347番ポートへsocket接続により可能，受け付ける形式は "NAME|LINE" で，[TIME, NAME, LINE] として保存する．  
