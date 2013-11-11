@@ -19,6 +19,6 @@ host = ARGV.first if ARGV.first
 
 while buf = Readline.readline( "> ", true )
 	s = TCPSocket.new host, port
-	s.puts name+'|'+buf
+	s.puts Marshal.dump( [name, buf] )
 	s.close
 end

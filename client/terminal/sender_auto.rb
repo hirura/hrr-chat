@@ -25,7 +25,7 @@ while true
 	i += 1
 	break if max > -1 && i > max
 	s = TCPSocket.new host, port
-	s.puts name+'|'+'x'*(rand(40)+1)
+	s.puts Marshal.dump( [name, 'x'*(rand(40)+1)] )
 	s.close
 	sleep interval.to_f
 end

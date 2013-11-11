@@ -25,9 +25,9 @@ ts.push Thread.new{
 	s = TCPServer.new 12347
 	while true
 		Thread.new( s.accept ){ |t|
-			line = t.gets.chomp
-			if line.split('').last != "|"
-				a.push line.split('|').unshift( Time.now.strftime( "%H:%M:%S" ) )
+			line = Marshal.load( t.gets.chomp )
+			if line.last != ""
+				a.push line.unshift( Time.now.strftime( "%m/%d %H:%M" ) )
 			end
 			t.close
 			puts a.size

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+require 'cgi'
 require 'net/http'
 require 'optparse'
 
@@ -25,7 +26,7 @@ while true
 	i += 1
 	break if max > -1 && i > max
 	Net::HTTP.start( host, port ){ |http|
-		http.post( '/cgi-bin/sender.rb', 'name='+name+'&line='+'x'*(rand(40)+1) )
+		http.post( '/cgi-bin/sender.rb', 'name='+CGI.escape(name)+'&line='+CGI.escape('x'*(rand(40)+1)) )
 	}
 	sleep interval.to_f
 end

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+require 'cgi'
 require 'net/http'
 require 'readline'
 require 'optparse'
@@ -19,6 +20,6 @@ host = ARGV.first if ARGV.first
 
 while buf = Readline.readline( "> ", true )
 	Net::HTTP.start( host, port ){ |http|
-		http.post( '/cgi-bin/sender.rb', 'name='+name+'&line='+buf )
+		http.post( '/cgi-bin/sender.rb', 'name='+CGI.escape(name)+'&line='+CGI.escape(buf) )
 	}
 end

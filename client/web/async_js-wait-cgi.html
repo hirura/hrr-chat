@@ -26,7 +26,7 @@
 						}
 						view_req.open("POST", "/cgi-bin/viewer_js-wait-cgi.rb", true);
 						view_req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-						view_req.send("num="+num.replace(/\&/g,'%26'));
+						view_req.send( "num" + "=" + encodeURIComponent( num ) );
 					}
 				}
 				var num = '-1';
@@ -41,7 +41,7 @@
 					var send_req = new XMLHttpRequest();
 					send_req.open("POST", "/cgi-bin/sender.rb", false);
 					send_req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-					send_req.send("name="+name.replace(/\&/g,'%26')+"&line="+line.replace(/\&/g,'%26'));
+					send_req.send( "name" + "=" + encodeURIComponent( name ) + "&" + "line" + "=" + encodeURIComponent( line ) ));
 					document.sender.line.value = "";
 				}
 				document.sender.line.focus();
